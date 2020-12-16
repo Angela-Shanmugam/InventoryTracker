@@ -28,6 +28,7 @@ namespace InventoryTracker
         private int _minQty;
         private string _userCategory;
         private string _userSupplier;
+        private int _location;
         private int _availableQty;
 
         /*********************default constructor*********************/
@@ -38,12 +39,13 @@ namespace InventoryTracker
         {
             get
             {
-                return GetName();
+                return _name;
             }
             set
             {
+                
                 _name = value;
-                //SetName(_name);
+         
             }
         }
 
@@ -55,7 +57,7 @@ namespace InventoryTracker
             }
             set
             {
-                
+                _location = value;
             }
         }
 
@@ -63,7 +65,7 @@ namespace InventoryTracker
         {
             get
             {
-                return GetSupplier(_userSupplier);
+                return GetSupplier();
             }
             set
             {
@@ -88,12 +90,12 @@ namespace InventoryTracker
         {
             get
             {
-                return GetAvailableQuantity();
+                return _availableQty;
             }
             set
             {
                 _availableQty = value;
-                //SetAvailableQuantity(_availableQty);
+   
             }
 
         }
@@ -102,7 +104,7 @@ namespace InventoryTracker
         {
             get
             {
-                return GetCategory(_userCategory);
+                return GetCategory();
             }
             set
             {
@@ -113,31 +115,31 @@ namespace InventoryTracker
 
 
         /*********************Methods*********************/
-        public string GetCategory(string userChoice)
+        public string GetCategory()
         {
             foreach (string cat in Enum.GetNames(typeof(category)))
             {
-                if (userChoice == cat)
+                if (_userCategory == cat)
                 {
                     return cat;
                 }
             }
 
-            return userChoice;
+            return _userCategory;
             
         }
 
-        public string GetSupplier(string userChoice)
+        public string GetSupplier()
         {
             //"Costco", "Walmart", "Super C", "Maxi", "Provigo", "IGA", "Other" 
             for (int i = 0; i < supplier.Count; i++)
             {
-                if (userChoice == supplier[i])
+                if (_userSupplier == supplier[i])
                 {
                     return supplier[i];
                 }
             }
-            return userChoice;
+            return _userSupplier;
         }
 
         //the minimum quantity that a store should always have at all times
@@ -247,32 +249,9 @@ namespace InventoryTracker
             return null;
         }
 
-        //quantity available in store
-        public int GetAvailableQuantity()
-        {
-            return _availableQty;
-        }
+        
 
-        public void SetAvailableQuantity(int availableQty)
-        {
-            //_availableQty = availableQty;
-        }
-
-        public string GetName()
-        {
-            return _name;
-        }
-
-        public void SetName(string _name)
-        {
-            /*
-            if (string.IsNullOrEmpty(_name))
-            {
-                throw new ArgumentException("Name cannot be empty", "Name");
-            }
-            this._name = _name;
-            */
-        }
+        
         public string FullInfo
         {
             get
