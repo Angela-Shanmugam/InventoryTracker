@@ -24,7 +24,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBlock Text="{Binding Item}" />
+                        <TextBlock Text="{Binding Name}" />
                     </WrapPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
