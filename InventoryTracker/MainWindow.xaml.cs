@@ -96,26 +96,7 @@ namespace InventoryTracker
                     return;
             }
             string message = inventory.SaveItems(recordCount, saveLocation, items);
-            MessageBox.Show(message);
-        }
-
-        private void SaveDataToFile()
-        {
-            try
-            {
-                StringBuilder records = new StringBuilder();
-                //loop over all elements in the list and save them to a file
-                for (int i = recordCount; i < items.Count; i++)
-                {
-                    records.AppendLine(items[i].CSVData);
-                }
-                File.AppendAllText(saveLocation, records.ToString());
-                recordCount = items.Count;            
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Cannot save: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBox.Show(message, "Save Status", MessageBoxButton.OK);
         }
 
         private Item GetItemObject(AddForm addForm)
