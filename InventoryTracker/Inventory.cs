@@ -80,7 +80,7 @@ namespace InventoryTracker
 
 
         //Saves any changes made on the item list or the items.
-        public void SaveItems(int recordCount,string saveLocation, List<Item> items)
+        public string SaveItems(int recordCount,string saveLocation, List<Item> items)
         {
             try
             {
@@ -92,10 +92,12 @@ namespace InventoryTracker
                 }
                 File.AppendAllText(saveLocation, records.ToString());
                 recordCount = items.Count;
+
+                return "Save Successful";
             }
             catch (Exception e)
             {
-                //MessageBox.Show("Cannot save: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return "Cannot Save";
             }
         }
 

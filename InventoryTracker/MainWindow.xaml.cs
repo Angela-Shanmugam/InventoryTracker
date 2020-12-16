@@ -95,8 +95,11 @@ namespace InventoryTracker
                 else
                     return;
             }
-            inventory.SaveItems(recordCount, saveLocation, items);
-            //SaveDataToFile();
+            inventory.SaveItems(recordCount, saveLocation, items)
+            {
+                MessageBox.Show("Cannot save!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void SaveDataToFile()
