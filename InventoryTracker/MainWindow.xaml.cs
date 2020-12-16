@@ -28,6 +28,7 @@ namespace InventoryTracker
 
         private bool isNewDocument = true; //used to check if the file is new and never saved.
         private string saveLocation; //once saved, keep the location for future saves
+        private int records = 0; //used to keep track what records are already saved
 
         public MainWindow()
         {
@@ -117,14 +118,18 @@ namespace InventoryTracker
             }
         }
 
-        /*
-        
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!CheckToLoadExit())
+                e.Cancel = true; //true: means stay in the application, do not close
+        }
+
         private bool CheckToLoadExit()
         {
             //True: to start the loading process / exit process
             //False: to stop the load process /Exit process
 
-            if (newRecordIndex < items.Count)
+            if (records < items.Count)
             {
                 //Data the is not saved >> do not load give warning msg
                 MessageBoxResult result = MessageBox.Show("Data not saved.\nDo you want to save changes?", "Save Data Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
@@ -144,13 +149,13 @@ namespace InventoryTracker
                 //Data is saved: true will be return outside
 
                 //Yes with no file name provide (Save As canceled) >> false (Data is still not saved after asking to save)
-                if (newRecordIndex < items.Count)
+                if (records < items.Count)
                     return false;
 
             }
             return true; //Data is saved
 
         }
-        */
+        
     }
 }
