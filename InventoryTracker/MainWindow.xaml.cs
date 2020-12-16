@@ -93,7 +93,10 @@ namespace InventoryTracker
                     isNewDocument = false;
                 }
                 else
+                {
                     return;
+                }
+                    
             }
             string message = inventory.SaveItems(recordCount, saveLocation, items);
             MessageBox.Show(message, "Save Status", MessageBoxButton.OK);
