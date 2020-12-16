@@ -75,8 +75,7 @@ namespace InventoryTracker
 
         private void btnShoppingList_Click(object sender, RoutedEventArgs e)
         {
-            
-            //inventory.ShoppingList();
+            MessageBox.Show(inventory.ShoppingList(items));
         }
 
         //Methods

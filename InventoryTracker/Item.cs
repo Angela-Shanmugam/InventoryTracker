@@ -7,7 +7,7 @@ namespace InventoryTracker
     public enum category
     {
         Pantry,
-        Diary,
+        Dairy,
         Drinks,
         FrozenFood,
         Fruits,
@@ -204,7 +204,7 @@ namespace InventoryTracker
                     return isleNum;
 
                 case "Dairy":
-                    isleNum = (int)category.Diary + 1;
+                    isleNum = (int)category.Dairy + 1;
                     return isleNum;
 
                 case "Drinks":

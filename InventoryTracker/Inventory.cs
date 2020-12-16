@@ -45,10 +45,10 @@ namespace InventoryTracker
 
 
         //Provided a report for items that need to be purchased because there is not enough quantity available
-        public string ShoppingList()
+        public string ShoppingList(List<Item> items)
         {
             StringBuilder shopping = new StringBuilder();
-            foreach (Item theItem in _items)
+            foreach (Item theItem in items)
             {
                 if (theItem.AvailableQty < theItem.MinQty)
                 {
