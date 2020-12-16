@@ -43,12 +43,13 @@ namespace InventoryTracker
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-
+            //inventory.load();
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("updated");
+            //inventory.update();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -70,11 +71,13 @@ namespace InventoryTracker
         private void btnGeneralReport_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("reported");
+            //inventory.GeneralReport();
         }
 
         private void btnSpecialReport_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("reported *");
+            //inventory.SpecialReport();
         }
 
         //Methods
@@ -106,14 +109,13 @@ namespace InventoryTracker
             };           
         }
 
-        private void ItemsStock_MouseDoubleClick(object sender, SelectionChangedEventArgs e)
+        private void ItemsStock_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             Item I = ItemsStock.SelectedItem as Item;
             if (I != null)
             {
                 ItemDetails.Text = I.FullInfo;
             }
-            
         }
 
         /*

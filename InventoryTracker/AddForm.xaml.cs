@@ -93,8 +93,6 @@ namespace InventoryTracker
             {
                 this.Close();
             }
-
-            //ItemsStock.Items.Add(addForm.prodName.Text);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -285,11 +285,6 @@ namespace InventoryTracker
                 "Name:", "Supplier:", "Location:", "Category:", "Available Quantity:");
             }
         }
-
-        /*public string FullInfo()
-        {
-            return string.Format("Product Name: {0}\nSupplier: {1}\nLocation: Isle {2}\nCategory: {3}\nAvailable Quantity: {4}", this.Name, this.Supplier, this.Location, this.Category, this.AvailableQty);
-        }*/
     }
 
 }
