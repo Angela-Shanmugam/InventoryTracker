@@ -127,8 +127,9 @@ namespace InventoryTracker
         //}
 
         //add a method to sort the inventory list in alphabetical order,,,you can choose the sorting algorithm!
-        public void SortItems(List<Item> items)
+         public List<Item> SortItems(List<Item> items)
         {
+            List<Item> sortedList = new List<Item>();
             Item temp;
             for (int i = 0; i < items.Count; i++)
             {
@@ -142,6 +143,11 @@ namespace InventoryTracker
                     }
                 }
             }
+            for (int i = 0; i < items.Count; i++)
+            {
+                sortedList.Add(items[i]);
+            }
+            return sortedList;
         }
     }
 }
