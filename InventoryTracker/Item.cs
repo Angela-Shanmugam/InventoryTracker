@@ -51,7 +51,7 @@ namespace InventoryTracker
         {
             get
             {
-                return (int)GetLocation(_userCategory);
+                return (int)GetLocation();
             }
             set
             {
@@ -193,10 +193,10 @@ namespace InventoryTracker
         }
 
         //Provides information where the item is located in the store
-        public int? GetLocation(string userChoice)
+        public int? GetLocation()
         {
             int isleNum;
-            switch (userChoice)
+            switch (_userCategory)
             {
                 case "Pantry":
                     isleNum = (int)category.Pantry + 1;

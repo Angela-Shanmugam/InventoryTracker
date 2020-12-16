@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace InventoryTracker
 {
     /// <summary>
@@ -20,6 +21,7 @@ namespace InventoryTracker
         Item tempItem = new Item(); 
         List<string> dropDownSuppliers = new List<string>() { };
         List<string> categories = new List<string>() { };
+        
         public AddForm()
         {
             InitializeComponent();
@@ -60,9 +62,14 @@ namespace InventoryTracker
             }
 
             //Available Qty
-            if (string.IsNullOrEmpty(qtyAvailable.Text))
+            if (Convert.ToInt32(qtyAvailable.Text) <= 0 || string.IsNullOrEmpty(qtyAvailable.Text))
             {
-                msg.AppendLine("Quantity is a required field.");
+                msg.AppendLine("Quantity is a required field.");               
+            }
+            else
+            {
+                int quantity = Convert.ToInt32(qtyAvailable.Text);
+                tempItem.AvailableQty = quantity;
             }
 
             //category and Supplier: (-1 mean not selected index)
