@@ -112,8 +112,6 @@ namespace InventoryTracker
             }
         }
 
-
-
         /*********************Methods*********************/
         public string GetCategory()
         {
@@ -249,9 +247,6 @@ namespace InventoryTracker
             return null;
         }
 
-        
-
-        
         public string FullInfo
         {
             get

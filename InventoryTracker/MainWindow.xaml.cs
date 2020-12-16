@@ -48,7 +48,6 @@ namespace InventoryTracker
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("updated");
             //inventory.update();
         }
 
@@ -65,19 +64,19 @@ namespace InventoryTracker
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
-            inventory.SortItems(items);
+            ItemsStock.ItemsSource = inventory.SortItems(items);
+            ItemsStock.Items.Refresh();
         }
 
         private void btnGeneralReport_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("reported");
-            //inventory.GeneralReport();
+            MessageBox.Show(inventory.GeneralReport(items));
         }
 
-        private void btnSpecialReport_Click(object sender, RoutedEventArgs e)
+        private void btnShoppingList_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("reported *");
-            //inventory.SpecialReport();
+            
+            //inventory.ShoppingList();
         }
 
         //Methods

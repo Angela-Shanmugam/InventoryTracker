@@ -33,12 +33,12 @@ namespace InventoryTracker
         //}
 
         //Provide a report that shows all items with available quantities and minimum quantities
-        public string GeneralReport()
+        public string GeneralReport(List<Item> items)
         {
             StringBuilder report = new StringBuilder();
-            foreach (Item theItem in _items)
+            foreach (Item theItem in items)
             {
-                report.AppendFormat("Item: {0}, Available quantity: {1}, Miminum quantity: {2}", theItem.Name, theItem.AvailableQty, theItem.MinQty, Environment.NewLine);
+                report.AppendFormat("Item: {0}, Available quantity: {1}, Miminum quantity: {2}\n\n\n", theItem.Name, theItem.AvailableQty, theItem.MinQty, Environment.NewLine);
             }
             return report.ToString();
         }
