@@ -80,51 +80,24 @@ namespace InventoryTracker
 
 
         //Saves any changes made on the item list or the items.
-        //public void SaveItems()
-        //{
-        //    try
-        //    {
-        //        StringBuilder records = new StringBuilder();
-        //        //loop over all elements in the list and save them to a file
-        //        for (int i = 0; i < _items.Count; i++)
-        //            records.AppendLine(_items[i].CSVData);
-
-        //        File.AppendAllText(saveLocation, records.ToString());
-        //        newRecordIndex = visitors.Count;
-        //        txtStatusBar.Text = "Status: Records saved to " + saveLocation;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //    }
-        //}
-
-
-        //private string CSVData
-        //{
-        //    get { return string.Format($"{Name},{Supplier},{Location},{MinQty},{MaxQty},{Category}"); }
-        //    set
-        //    {
-        //        try
-        //        {
-
-        //            string[] data = value.Split(",");
-        //            foreach (Item theItem in _items)
-        //            {
-        //                theItem.Name = data[0];
-        //                 theItem._supplier=data[1];
-        //                Country = data[2];
-        //                IsSpeaker = bool.Parse(data[4]);
-        //                CheckInDate = DateTime.Parse(data[5]);
-        //            }
-
-        //        }
-        //        catch (Exception)
-        //        {
-        //            throw new ArgumentException("CSV Data property not valid input", "CVSData");
-        //        }
-        //    }
-        //}
+        public void SaveItems(int recordCount,string saveLocation, List<Item> items)
+        {
+            try
+            {
+                StringBuilder records = new StringBuilder();
+                //loop over all elements in the list and save them to a file
+                for (int i = recordCount; i < items.Count; i++)
+                {
+                    records.AppendLine(items[i].CSVData);
+                }
+                File.AppendAllText(saveLocation, records.ToString());
+                recordCount = items.Count;
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show("Cannot save: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         //add a method to sort the inventory list in alphabetical order,,,you can choose the sorting algorithm!
          public List<Item> SortItems(List<Item> items)

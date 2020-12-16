@@ -260,6 +260,28 @@ namespace InventoryTracker
                 "Name:", "Supplier:", "Location (isle): ", "Category:", "Available Quantity:");
             }
         }
+
+        public string CSVData
+        {
+            get { return string.Format($"{Name},{Supplier},{Location},{Category},{AvailableQty}"); }
+            set
+            {
+                try
+                {
+                    string[] data = value.Split(",");
+                    Name = data[0];
+                    Supplier = data[1];
+                    Location = Convert.ToInt32(data[2]);
+                    Category = data[4];
+                    AvailableQty = Convert.ToInt32(data[5]);
+                    
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException("CSV Data property not valid input", "CVSData");
+                }
+            }
+        }
     }
 
 }

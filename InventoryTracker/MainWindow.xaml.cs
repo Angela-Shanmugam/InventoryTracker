@@ -28,7 +28,7 @@ namespace InventoryTracker
 
         private bool isNewDocument = true; //used to check if the file is new and never saved.
         private string saveLocation; //once saved, keep the location for future saves
-        private int records = 0; //used to keep track what records are already saved
+        private int recordCount = 0; //used to keep track what records are already saved
 
         public MainWindow()
         {
@@ -95,8 +95,29 @@ namespace InventoryTracker
                 else
                     return;
             }
+            inventory.SaveItems(recordCount, saveLocation, items);
             //SaveDataToFile();
         }
+
+        private void SaveDataToFile()
+        {
+            try
+            {
+                StringBuilder records = new StringBuilder();
+                //loop over all elements in the list and save them to a file
+                for (int i = recordCount; i < items.Count; i++)
+                {
+                    records.AppendLine(items[i].CSVData);
+                }
+                File.AppendAllText(saveLocation, records.ToString());
+                recordCount = items.Count;            
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Cannot save: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private Item GetItemObject(AddForm addForm)
         {
             int quantity = Convert.ToInt32(addForm.qtyAvailable.Text);
@@ -129,7 +150,7 @@ namespace InventoryTracker
             //True: to start the loading process / exit process
             //False: to stop the load process /Exit process
 
-            if (records < items.Count)
+            if (recordCount < items.Count)
             {
                 //Data the is not saved >> do not load give warning msg
                 MessageBoxResult result = MessageBox.Show("Data not saved.\nDo you want to save changes?", "Save Data Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
@@ -149,7 +170,7 @@ namespace InventoryTracker
                 //Data is saved: true will be return outside
 
                 //Yes with no file name provide (Save As canceled) >> false (Data is still not saved after asking to save)
-                if (records < items.Count)
+                if (recordCount < items.Count)
                     return false;
 
             }
