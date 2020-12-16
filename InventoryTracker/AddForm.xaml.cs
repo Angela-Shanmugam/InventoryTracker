@@ -66,12 +66,7 @@ namespace InventoryTracker
             {
                 msg.AppendLine("Quantity is a required field.");               
             }
-            else
-            {
-                int quantity = Convert.ToInt32(qtyAvailable.Text);
-                tempItem.AvailableQty = quantity;
-            }
-
+            
             //category and Supplier: (-1 mean not selected index)
             if (cmbCategory.SelectedIndex == -1)
             {

@@ -92,7 +92,8 @@ namespace InventoryTracker
             }
             set
             {
-                SetAvailableQuantity(_availableQty);
+                _availableQty = value;
+                //SetAvailableQuantity(_availableQty);
             }
 
         }
@@ -252,9 +253,9 @@ namespace InventoryTracker
             return _availableQty;
         }
 
-        public void SetAvailableQuantity(int _availableQty)
+        public void SetAvailableQuantity(int availableQty)
         {
-            this._availableQty = _availableQty;
+            //_availableQty = availableQty;
         }
 
         public string GetName()
@@ -278,11 +279,11 @@ namespace InventoryTracker
             {
                 return string.Format(
                 "{0,-20}" + Name + "\n" +
-                "{1,-21}" + Supplier + "\n" +
+                "{1,-20}" + Supplier + "\n" +
                 "{2,-20}" + Location + "\n" +
-                "{3,-21}" + Category + "\n" +
+                "{3,-20}" + Category + "\n" +
                 "{4,-20}" + AvailableQty + "\n",            
-                "Name:", "Supplier:", "Location:", "Category:", "Available Quantity:");
+                "Name:", "Supplier:", "Location (isle): ", "Category:", "Available Quantity:");
             }
         }
     }

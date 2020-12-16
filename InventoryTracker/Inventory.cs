@@ -10,11 +10,7 @@ namespace InventoryTracker
 
         const string FILE = "./Items.txt";
         private List<Item> _items;
-        /* 
-         * In case the file has issues: load some default values.
-         */
-        private string[] listOfItems = { "Orange", "Bread", "Beef" };
-
+        
         //Adds the item from the list
         public void AddItem(Item item)
         {
@@ -69,11 +65,11 @@ namespace InventoryTracker
             {
                 if (File.Exists(FILE))
                 {
-                    listOfItems = File.ReadAllLines(FILE);
-                    foreach (string item in listOfItems)
-                    {
+                    //listOfItems = File.ReadAllLines(FILE);
+                    //foreach (string item in listOfItems)
+                    //{
 
-                    }
+                    //}
                 }
             }
             catch (Exception e)

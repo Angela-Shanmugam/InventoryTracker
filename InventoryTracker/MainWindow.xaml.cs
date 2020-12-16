@@ -36,7 +36,7 @@ namespace InventoryTracker
         }
 
         //Buttons
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Save();
         }
@@ -99,17 +99,18 @@ namespace InventoryTracker
             //SaveDataToFile();
         }
         private Item GetItemObject(AddForm addForm)
-        {           
+        {
+            int quantity = Convert.ToInt32(addForm.qtyAvailable.Text);
             return new Item()
             {             
                 Name = addForm.prodName.Text,
                 Supplier = addForm.cmbSupplier.Text,
                 Category = addForm.cmbCategory.Text,
-                AvailableQty = Convert.ToInt32(addForm.qtyAvailable.Text)
+                AvailableQty = quantity
             };           
         }
 
-        private void ItemsStock_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void ItemsStock_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Item I = ItemsStock.SelectedItem as Item;
             if (I != null)
