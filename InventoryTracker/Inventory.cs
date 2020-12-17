@@ -41,29 +41,24 @@ namespace InventoryTracker
         }
 
         //Provide a report that shows all items with available quantities and minimum quantities
-        public string GeneralReport(List<Item> items)
+        public List<Item> GeneralReport(List<Item> items)
         {
-            StringBuilder report = new StringBuilder();
-            foreach (Item theItem in items)
-            {
-                report.AppendFormat("Item: {0}, Available quantity: {1}, Miminum quantity: {2}\n\n\n", theItem.Name, theItem.AvailableQty, theItem.MinQty, Environment.NewLine);
-            }
-            return report.ToString();
+            return items;
         }
 
 
         //Provided a report for items that need to be purchased because there is not enough quantity available
-        public string ShoppingList(List<Item> items)
+        public List<Item> ShoppingList(List<Item> items)
         {
-            StringBuilder shopping = new StringBuilder();
+            List<Item> shoppingList = new List<Item>();
             foreach (Item theItem in items)
             {
                 if (theItem.AvailableQty < theItem.MinQty)
                 {
-                    shopping.AppendLine(theItem.Name);
+                    shoppingList.Add(theItem);
                 }
             }
-            return shopping.ToString();
+            return shoppingList;
         }
 
         //A method to load items from a file(s)
@@ -139,19 +134,18 @@ namespace InventoryTracker
          public List<Item> SortItems(List<Item> items)
         {
             List<Item> sortedList = new List<Item>();
-            Item temp;
             int j;
             for (int i = 1; i < items.Count; i++)
             {
-                temp = items[i];
+                IComparable value = items[i].Name;
                 j = i - 1;
 
-                while (j >= 0 && items[j].AvailableQty > temp.AvailableQty)
+                while (j >= 0 && items[j].Name.CompareTo(value) > 0)
                 {
                     items[j + 1] = items[j];
-                    j = j - 1;
+                    j--;
                 }
-                items[j + 1] = temp;
+                items[j + 1] = (Item)value;
             }
             for (int i = 0; i < items.Count; i++)
             {
