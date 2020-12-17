@@ -101,7 +101,8 @@ namespace InventoryTracker
             }
         }
 
-        //add a method to sort the inventory list in alphabetical order,,,you can choose the sorting algorithm!
+        //add a method to sort the inventory list in alphabetical order
+        //Using Bubble Sort
          public List<Item> SortItems(List<Item> items)
         {
             List<Item> sortedList = new List<Item>();

@@ -52,6 +52,7 @@ namespace InventoryTracker
             //inventory.update();
         }
 
+        //fix this!!!
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AddForm addForm = new AddForm();
