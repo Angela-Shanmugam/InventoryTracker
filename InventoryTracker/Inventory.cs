@@ -69,25 +69,48 @@ namespace InventoryTracker
         //A method to load items from a file(s)
         private void LoadItems()
         {
-            try
+            List<string> loadedItems = new List<string>();
+            if (File.Exists(FILE))
             {
-                if (File.Exists(FILE))
+
+                StreamReader streamReader = null;
+
+
+                try
                 {
-                    string[] loadedItems= File.ReadAllLines(FILE);
-                    loadedItems = File.ReadAllLines(FILE);
-                    foreach (string item in loadedItems)
+
+                    streamReader = new StreamReader(FILE);
+
+
+                    foreach (string line in File.ReadLines(FILE))
                     {
+                        loadedItems.Add(line);
                         
                     }
+
+                }
+                catch (FormatException E)
+                {
+                    Console.WriteLine("Error! " + E.Message);
+                    streamReader.Close();
+
+
+
                 }
             }
-            catch (Exception e)
+            foreach (string item in loadedItems)
             {
-                Console.WriteLine(e.Message);
+                Item theLoadedItem = new Item();
+                string[] data = item.Split(",");
+                theLoadedItem.Name = data[0];
+                theLoadedItem.Supplier = data[1];
+                theLoadedItem.Location = Convert.ToInt32(data[2]);
+                theLoadedItem.Category = data[4];
+                theLoadedItem.AvailableQty = Convert.ToInt32(data[5]);
+                _items.Add(theLoadedItem);
             }
+
         }
-
-
         //Saves any changes made on the item list or the items.
         public string SaveItems(int recordCount,string saveLocation, List<Item> items)
         {
@@ -106,26 +129,29 @@ namespace InventoryTracker
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return "Cannot Save";
+                
             }
         }
 
-        //add a method to sort the inventory list in alphabetical order, using bubble sort
+        //add a method to sort the inventory list in alphabetical order, using insertion sort
          public List<Item> SortItems(List<Item> items)
         {
             List<Item> sortedList = new List<Item>();
             Item temp;
-            for (int i = 0; i < items.Count; i++)
+            int j;
+            for (int i = 1; i < items.Count; i++)
             {
-                for (int j = 0; j < items.Count - 1; j++)
+                temp = items[i];
+                j = i - 1;
+
+                while (j >= 0 && items[j].AvailableQty > temp.AvailableQty)
                 {
-                    if (items[j].Name.CompareTo(items[j + 1].Name) > 0)
-                    {
-                        temp = items[j];
-                        items[j] = items[j + 1];
-                        items[j + 1] = temp;
-                    }
+                    items[j + 1] = items[j];
+                    j = j - 1;
                 }
+                items[j + 1] = temp;
             }
             for (int i = 0; i < items.Count; i++)
             {
