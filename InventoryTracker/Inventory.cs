@@ -7,8 +7,6 @@ namespace InventoryTracker
 {
     class Inventory
     {
-
-        const string FILE = "./Items.csv";
         private List<Item> _items = new List<Item>() { };
         //getter for List
         public List<Item> Items { get { return _items; } set { _items = value; } }
@@ -62,16 +60,16 @@ namespace InventoryTracker
         }
 
         //A method to load items from a file(s)
-        private void LoadItems()
+        public void LoadItems(string saveLocation)
         {
             List<string> loadedItems = new List<string>();
-            if (File.Exists(FILE))
+            if (File.Exists(saveLocation))
             {
                 StreamReader streamReader = null;
                 try
                 {
-                    streamReader = new StreamReader(FILE);
-                    foreach (string line in File.ReadLines(FILE))
+                    streamReader = new StreamReader(saveLocation);
+                    foreach (string line in File.ReadLines(saveLocation))
                     {
                         loadedItems.Add(line);                      
                     }
@@ -91,7 +89,7 @@ namespace InventoryTracker
                 theLoadedItem.Location = Convert.ToInt32(data[2]);
                 theLoadedItem.Category = data[3];
                 theLoadedItem.AvailableQty = Convert.ToInt32(data[4]);
-                theLoadedItem.MinQty = Convert.ToInt32(data[5]);
+                //theLoadedItem.MinQty = Convert.ToInt32(data[5]);
                 _items.Add(theLoadedItem);
             }
         }

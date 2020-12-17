@@ -43,7 +43,31 @@ namespace InventoryTracker
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            //inventory.load();
+            // Check before opening a new file that the current file is saved.
+            if (CheckToLoadExit())
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "CSV Files|*.csv";
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    //Clear any current data
+                    inventory.Items.Clear();
+                    
+                    //Read from the CSV file
+                    saveLocation = openFileDialog.FileName;
+
+                    inventory.LoadItems(saveLocation);
+                    
+                    //Refresh UI
+                    ItemsStock.Items.Refresh();
+                    
+                    //Logic related to saving variables
+                    isNewDocument = false;
+                    recordCount = inventory.Items.Count; //indicates that data is already saved
+                    
+                }
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
