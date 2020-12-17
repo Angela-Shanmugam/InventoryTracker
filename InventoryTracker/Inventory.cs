@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -8,9 +8,11 @@ namespace InventoryTracker
     class Inventory
     {
 
-        const string FILE = "./Items.txt";
+        const string FILE = "./Items.csv";
         private List<Item> _items;
-        
+        //getter for List
+        public List<Item> Items { get { return _items; } }
+
         //Adds the item from the list
         public void AddItem(Item item)
         {
@@ -24,61 +26,86 @@ namespace InventoryTracker
         }
 
         //Provide functionality to update all the Item data fields(update available quantities)
-        //public void UpdateItem(int quantity)
-        //{
-        //    foreach  (Item theItem in _items)
-        //    {
-        //        if()
-        //    }
-        //}
+        public Item UpdateItem(Item item,int quantity,string supplier)
+        {
+            foreach (Item theItem in _items)
+            {
+                if(theItem.Name == item.Name)
+                {
+                    theItem.AvailableQty = quantity;
+                    theItem.Supplier = supplier;
+                    return theItem;
+                }
+            }
+            return item;
+        }
 
         //Provide a report that shows all items with available quantities and minimum quantities
-        public string GeneralReport(List<Item> items)
+        public List<Item> GeneralReport(List<Item> items)
         {
-            StringBuilder report = new StringBuilder();
-            foreach (Item theItem in items)
-            {
-                report.AppendFormat("Item: {0}, Available quantity: {1}, Miminum quantity: {2}\n\n\n", theItem.Name, theItem.AvailableQty, theItem.MinQty, Environment.NewLine);
-            }
-            return report.ToString();
+            return items;
         }
 
 
         //Provided a report for items that need to be purchased because there is not enough quantity available
-        public string ShoppingList(List<Item> items)
+        public List<Item> ShoppingList(List<Item> items)
         {
-            StringBuilder shopping = new StringBuilder();
+            List<Item> shoppingList = new List<Item>();
             foreach (Item theItem in items)
             {
                 if (theItem.AvailableQty < theItem.MinQty)
                 {
-                    shopping.AppendLine(theItem.Name);
+                    shoppingList.Add(theItem);
                 }
             }
-            return shopping.ToString();
+            return shoppingList;
         }
 
         //A method to load items from a file(s)
         private void LoadItems()
         {
-            try
+            List<string> loadedItems = new List<string>();
+            if (File.Exists(FILE))
             {
-                if (File.Exists(FILE))
-                {
-                    //listOfItems = File.ReadAllLines(FILE);
-                    //foreach (string item in listOfItems)
-                    //{
 
-                    //}
+                StreamReader streamReader = null;
+
+
+                try
+                {
+
+                    streamReader = new StreamReader(FILE);
+
+
+                    foreach (string line in File.ReadLines(FILE))
+                    {
+                        loadedItems.Add(line);
+                        
+                    }
+
+                }
+                catch (FormatException E)
+                {
+                    Console.WriteLine("Error! " + E.Message);
+                    streamReader.Close();
+
+
+
                 }
             }
-            catch (Exception e)
+            foreach (string item in loadedItems)
             {
-                Console.WriteLine(e.Message);
+                Item theLoadedItem = new Item();
+                string[] data = item.Split(",");
+                theLoadedItem.Name = data[0];
+                theLoadedItem.Supplier = data[1];
+                theLoadedItem.Location = Convert.ToInt32(data[2]);
+                theLoadedItem.Category = data[4];
+                theLoadedItem.AvailableQty = Convert.ToInt32(data[5]);
+                _items.Add(theLoadedItem);
             }
+
         }
-
-
         //Saves any changes made on the item list or the items.
         public string SaveItems(int recordCount,string saveLocation, List<Item> items)
         {
@@ -97,27 +124,28 @@ namespace InventoryTracker
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return "Cannot Save";
+                
             }
         }
 
-        //add a method to sort the inventory list in alphabetical order
-        //Using Bubble Sort
+        //add a method to sort the inventory list in alphabetical order, using insertion sort
          public List<Item> SortItems(List<Item> items)
         {
             List<Item> sortedList = new List<Item>();
-            Item temp;
-            for (int i = 0; i < items.Count; i++)
+            int j;
+            for (int i = 1; i < items.Count; i++)
             {
-                for (int j = 0; j < items.Count - 1; j++)
+                IComparable value = items[i].Name;
+                j = i - 1;
+
+                while (j >= 0 && items[j].Name.CompareTo(value) > 0)
                 {
-                    if (items[j].Name.CompareTo(items[j + 1].Name) > 0)
-                    {
-                        temp = items[j];
-                        items[j] = items[j + 1];
-                        items[j + 1] = temp;
-                    }
+                    items[j + 1] = items[j];
+                    j--;
                 }
+                items[j + 1] = (Item)value;
             }
             for (int i = 0; i < items.Count; i++)
             {
