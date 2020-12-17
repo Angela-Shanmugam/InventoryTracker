@@ -77,7 +77,7 @@ namespace InventoryTracker
         {
             get
             {
-                return GetMinimumQuantity();
+                return _minQty;
             }
             set
             {
@@ -138,59 +138,6 @@ namespace InventoryTracker
                 }
             }
             return _userSupplier;
-        }
-
-        //the minimum quantity that a store should always have at all times
-        public int GetMinimumQuantity()
-        {
-
-            switch (_userCategory)
-            {
-                case "Pantry":
-                    _minQty = 2;
-                    return _minQty;
-
-                case "Dairy":
-                    _minQty = 3;
-                    return _minQty;
-
-                case "Drinks":
-                    _minQty = 4;
-                    return _minQty;
-
-                case "FrozenFood":
-                    _minQty = 5;
-                    return _minQty;
-
-                case "Fruits":
-                    _minQty = 6;
-                    return _minQty;
-
-                case "Vegetables":
-                    _minQty = 7;
-                    return _minQty;
-
-                case "Bakery":
-                    _minQty = 8;
-                    return _minQty;
-
-                case "CleaningSupplies":
-                    _minQty = 9;
-                    return _minQty;
-
-                case "Meats":
-                    _minQty = 10;
-                    return _minQty;
-
-                case "Other":
-                    _minQty = 1;
-                    return _minQty;
-
-                default:
-                    break;
-
-            }
-            return 1;
         }
 
         //Provides information where the item is located in the store
@@ -256,8 +203,9 @@ namespace InventoryTracker
                 "{1,-20}" + Supplier + "\n" +
                 "{2,-20}" + Location + "\n" +
                 "{3,-20}" + Category + "\n" +
-                "{4,-20}" + AvailableQty + "\n",            
-                "Name:", "Supplier:", "Location (isle): ", "Category:", "Available Quantity:");
+                "{4,-20}" + AvailableQty + "\n" +
+                "{5,-20}" + MinQty + "\n",            
+                "Name:", "Supplier:", "Location (isle):", "Category:", "Available Quantity:", "Minimum Quantity:");
             }
         }
 
@@ -274,7 +222,7 @@ namespace InventoryTracker
                     Location = Convert.ToInt32(data[2]);
                     Category = data[4];
                     AvailableQty = Convert.ToInt32(data[5]);
-                    
+                    MinQty = Convert.ToInt32(data[6]);         
                 }
                 catch (Exception)
                 {

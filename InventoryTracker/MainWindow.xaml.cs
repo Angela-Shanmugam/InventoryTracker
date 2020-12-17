@@ -23,7 +23,6 @@ namespace InventoryTracker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Item> items = new List<Item>();
         private Inventory inventory = new Inventory();
 
         private bool isNewDocument = true; //used to check if the file is new and never saved.
@@ -33,7 +32,7 @@ namespace InventoryTracker
         public MainWindow()
         {
             InitializeComponent();
-            ItemsStock.ItemsSource = items;
+            ItemsStock.ItemsSource = inventory.Items;
         }
 
         //Buttons
@@ -52,32 +51,29 @@ namespace InventoryTracker
             //inventory.update();
         }
 
-        //fix this!!!
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AddForm addForm = new AddForm();
             addForm.ShowDialog();
-            if (addForm.ValidateForm())
-            {
-                items.Add(GetItemObject(addForm));   
-                ItemsStock.Items.Refresh();
-            }
+            inventory.AddItem(GetItemObject(addForm));
+            ItemsStock.Items.Refresh();
         }
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
-            ItemsStock.ItemsSource = inventory.SortItems(items);
+            ItemsStock.ItemsSource = inventory.SortItems();
             ItemsStock.Items.Refresh();
         }
 
         private void btnGeneralReport_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(inventory.GeneralReport(items));
+
+            //MessageBox.Show(inventory.GeneralReport(inventory.Items));
         }
 
         private void btnShoppingList_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(inventory.ShoppingList(items));
+            //MessageBox.Show(inventory.ShoppingList(items));
         }
 
         //Methods
@@ -99,19 +95,19 @@ namespace InventoryTracker
                 }
                     
             }
-            string message = inventory.SaveItems(recordCount, saveLocation, items);
+            string message = inventory.SaveItems(recordCount, saveLocation);
             MessageBox.Show(message, "Save Status", MessageBoxButton.OK);
         }
 
         private Item GetItemObject(AddForm addForm)
         {
-            int quantity = Convert.ToInt32(addForm.qtyAvailable.Text);
             return new Item()
-            {             
+            {
                 Name = addForm.prodName.Text,
                 Supplier = addForm.cmbSupplier.Text,
                 Category = addForm.cmbCategory.Text,
-                AvailableQty = quantity
+                AvailableQty = Convert.ToInt32(addForm.qtyAvailable.Text),
+                MinQty = Convert.ToInt32(addForm.minQty.Text)
             };           
         }
 
@@ -135,7 +131,7 @@ namespace InventoryTracker
             //True: to start the loading process / exit process
             //False: to stop the load process /Exit process
 
-            if (recordCount < items.Count)
+            if (recordCount < inventory.Items.Count)
             {
                 //Data the is not saved >> do not load give warning msg
                 MessageBoxResult result = MessageBox.Show("Data not saved.\nDo you want to save changes?", "Save Data Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
@@ -155,7 +151,7 @@ namespace InventoryTracker
                 //Data is saved: true will be return outside
 
                 //Yes with no file name provide (Save As canceled) >> false (Data is still not saved after asking to save)
-                if (recordCount < items.Count)
+                if (recordCount < inventory.Items.Count)
                     return false;
 
             }

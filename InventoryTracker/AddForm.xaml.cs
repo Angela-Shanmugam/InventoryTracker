@@ -61,12 +61,17 @@ namespace InventoryTracker
                 msg.AppendLine("Name is a required field.");
             }
 
-            //Available Qty
+            //Available quantity and minimum quantity
             if (Convert.ToInt32(qtyAvailable.Text) <= 0 || string.IsNullOrEmpty(qtyAvailable.Text))
             {
-                msg.AppendLine("Quantity is a required field.");               
+                msg.AppendLine("Available Quantity is a required field.");               
             }
-            
+
+            if (Convert.ToInt32(minQty.Text) < 1 || string.IsNullOrEmpty(qtyAvailable.Text))
+            {
+                msg.AppendLine("Minimum Quantity is a required field.");
+            }
+
             //category and Supplier: (-1 mean not selected index)
             if (cmbCategory.SelectedIndex == -1)
             {

@@ -9,9 +9,9 @@ namespace InventoryTracker
     {
 
         const string FILE = "./Items.csv";
-        private List<Item> _items;
+        private List<Item> _items = new List<Item>() { };
         //getter for List
-        public List<Item> Items { get { return _items; } }
+        public List<Item> Items { get { return _items; } set { _items = value; } }
 
         //Adds the item from the list
         public void AddItem(Item item)
@@ -41,9 +41,9 @@ namespace InventoryTracker
         }
 
         //Provide a report that shows all items with available quantities and minimum quantities
-        public List<Item> GeneralReport(List<Item> items)
+        public List<Item> GeneralReport()
         {
-            return items;
+            return _items;
         }
 
 
@@ -67,30 +67,19 @@ namespace InventoryTracker
             List<string> loadedItems = new List<string>();
             if (File.Exists(FILE))
             {
-
                 StreamReader streamReader = null;
-
-
                 try
                 {
-
                     streamReader = new StreamReader(FILE);
-
-
                     foreach (string line in File.ReadLines(FILE))
                     {
-                        loadedItems.Add(line);
-                        
+                        loadedItems.Add(line);                      
                     }
-
                 }
                 catch (FormatException E)
                 {
                     Console.WriteLine("Error! " + E.Message);
                     streamReader.Close();
-
-
-
                 }
             }
             foreach (string item in loadedItems)
@@ -100,56 +89,56 @@ namespace InventoryTracker
                 theLoadedItem.Name = data[0];
                 theLoadedItem.Supplier = data[1];
                 theLoadedItem.Location = Convert.ToInt32(data[2]);
-                theLoadedItem.Category = data[4];
-                theLoadedItem.AvailableQty = Convert.ToInt32(data[5]);
+                theLoadedItem.Category = data[3];
+                theLoadedItem.AvailableQty = Convert.ToInt32(data[4]);
+                theLoadedItem.MinQty = Convert.ToInt32(data[5]);
                 _items.Add(theLoadedItem);
             }
-
         }
         //Saves any changes made on the item list or the items.
-        public string SaveItems(int recordCount,string saveLocation, List<Item> items)
+        public string SaveItems(int recordCount,string saveLocation)
         {
             try
             {
                 StringBuilder records = new StringBuilder();
+                
                 //loop over all elements in the list and save them to a file
-                for (int i = recordCount; i < items.Count; i++)
+                for (int i = recordCount; i < _items.Count; i++)
                 {
-                    records.AppendLine(items[i].CSVData);
+                    records.AppendLine(_items[i].CSVData);
                 }
                 File.AppendAllText(saveLocation, records.ToString());
-                recordCount = items.Count;
+                recordCount = _items.Count;
 
                 return "Save Successful";
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return "Cannot Save";
-                
+                return "Cannot Save";              
             }
         }
 
         //add a method to sort the inventory list in alphabetical order, using insertion sort
-         public List<Item> SortItems(List<Item> items)
+         public List<Item> SortItems()
         {
             List<Item> sortedList = new List<Item>();
             int j;
-            for (int i = 1; i < items.Count; i++)
+            for (int i = 1; i < _items.Count; i++)
             {
-                IComparable value = items[i].Name;
+                IComparable value = _items[i].Name;
                 j = i - 1;
 
-                while (j >= 0 && items[j].Name.CompareTo(value) > 0)
+                while (j >= 0 && _items[j].Name.CompareTo(value) > 0)
                 {
-                    items[j + 1] = items[j];
+                    _items[j + 1] = _items[j];
                     j--;
                 }
-                items[j + 1] = (Item)value;
+                _items[j + 1] = (Item)value;
             }
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < _items.Count; i++)
             {
-                sortedList.Add(items[i]);
+                sortedList.Add(_items[i]);
             }
             return sortedList;
         }
