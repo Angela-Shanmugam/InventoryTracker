@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -8,9 +8,11 @@ namespace InventoryTracker
     class Inventory
     {
 
-        const string FILE = "./Items.txt";
+        const string FILE = "./Items.csv";
         private List<Item> _items;
-        
+        //getter for List
+        public List<Item> Items { get { return _items; } }
+
         //Adds the item from the list
         public void AddItem(Item item)
         {
@@ -24,13 +26,19 @@ namespace InventoryTracker
         }
 
         //Provide functionality to update all the Item data fields(update available quantities)
-        //public void UpdateItem(int quantity)
-        //{
-        //    foreach  (Item theItem in _items)
-        //    {
-        //        if()
-        //    }
-        //}
+        public Item UpdateItem(Item item,int quantity,string supplier)
+        {
+            foreach (Item theItem in _items)
+            {
+                if(theItem.Name == item.Name)
+                {
+                    theItem.AvailableQty = quantity;
+                    theItem.Supplier = supplier;
+                    return theItem;
+                }
+            }
+            return item;
+        }
 
         //Provide a report that shows all items with available quantities and minimum quantities
         public string GeneralReport(List<Item> items)
@@ -65,11 +73,12 @@ namespace InventoryTracker
             {
                 if (File.Exists(FILE))
                 {
-                    //listOfItems = File.ReadAllLines(FILE);
-                    //foreach (string item in listOfItems)
-                    //{
-
-                    //}
+                    string[] loadedItems= File.ReadAllLines(FILE);
+                    loadedItems = File.ReadAllLines(FILE);
+                    foreach (string item in loadedItems)
+                    {
+                        
+                    }
                 }
             }
             catch (Exception e)
@@ -101,7 +110,7 @@ namespace InventoryTracker
             }
         }
 
-        //add a method to sort the inventory list in alphabetical order,,,you can choose the sorting algorithm!
+        //add a method to sort the inventory list in alphabetical order, using bubble sort
          public List<Item> SortItems(List<Item> items)
         {
             List<Item> sortedList = new List<Item>();
