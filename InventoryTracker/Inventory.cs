@@ -119,24 +119,24 @@ namespace InventoryTracker
 
        
         //add a method to sort the inventory list in alphabetical order, using insertion sort
-         public List<Item> SortItems(List<Item> items)
+         public List<Item> SortItems()
         {
             Item temp;
             int j;
-            for (int i = 1; i < items.Count; i++)
+            for (int i = 1; i < _items.Count; i++)
             {
-                temp = items[i];
+                temp = _items[i];
                 j = i - 1;
 
-                while (j >= 0 && items[j].Name.CompareTo(temp.Name) > 0)
+                while (j >= 0 && _items[j].Name.CompareTo(temp.Name) > 0)
                 {
-                    items[j + 1] = items[j];
+                    _items[j + 1] = _items[j];
                     j--;
                 }
-                items[j + 1] = temp;
+                _items[j + 1] = temp;
             }
 
-            return items;
+            return _items;
         }
     }
 }
