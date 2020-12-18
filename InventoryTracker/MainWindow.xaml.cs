@@ -91,10 +91,9 @@ namespace InventoryTracker
 
         private void btnGeneralReport_Click(object sender, RoutedEventArgs e)
         {
-            Reports generalReport = new Reports();
+            Reports generalReport = new Reports(inventory.Items);
             generalReport.ShowDialog();
-            generalReport.ReportType("General");
-            //MessageBox.Show(inventory.GeneralReport(inventory.Items));
+           
         }
 
         private void btnShoppingList_Click(object sender, RoutedEventArgs e)
