@@ -211,7 +211,7 @@ namespace InventoryTracker
 
         public string CSVData
         {
-            get { return string.Format($"{Name},{Supplier},{Location},{Category},{AvailableQty}"); }
+            get { return string.Format($"{Name},{Supplier},{Location},{Category},{AvailableQty},{MinQty}"); }
             set
             {
                 try
@@ -220,9 +220,9 @@ namespace InventoryTracker
                     Name = data[0];
                     Supplier = data[1];
                     Location = Convert.ToInt32(data[2]);
-                    Category = data[4];
-                    AvailableQty = Convert.ToInt32(data[5]);
-                    MinQty = Convert.ToInt32(data[6]);         
+                    Category = data[3];
+                    AvailableQty = Convert.ToInt32(data[4]);
+                    MinQty = Convert.ToInt32(data[5]);         
                 }
                 catch (Exception)
                 {

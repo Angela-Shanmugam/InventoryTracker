@@ -90,7 +90,7 @@ namespace InventoryTracker
                 theLoadedItem.Location = Convert.ToInt32(data[2]);
                 theLoadedItem.Category = data[3];
                 theLoadedItem.AvailableQty = Convert.ToInt32(data[4]);
-                //theLoadedItem.MinQty = Convert.ToInt32(data[5]);
+                theLoadedItem.MinQty = Convert.ToInt32(data[5]);
                 _items.Add(theLoadedItem);
             }
         }

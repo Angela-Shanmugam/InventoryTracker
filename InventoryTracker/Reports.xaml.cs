@@ -17,9 +17,23 @@ namespace InventoryTracker
     /// </summary>
     public partial class Reports : Window
     {
+        Inventory inventory = new Inventory();
         public Reports()
         {
-            InitializeComponent();
+            InitializeComponent();   
+            
+        }
+
+        public void ReportType(string type)
+        {
+            if (type == "General")
+            {
+                foreach (Item item in inventory.Items)
+                {
+                    string[] row = new string[] { item.Name, Convert.ToString(item.AvailableQty), Convert.ToString(item.MinQty) };
+                    dgItems.Items.Add(row);
+                }
+            }
         }
     }
 }
