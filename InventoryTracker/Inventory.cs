@@ -8,8 +8,9 @@ namespace InventoryTracker
     class Inventory
     {
         private List<Item> _items = new List<Item>() { };
+        
         //getter for List
-        public List<Item> Items { get { return _items; } set { _items = value; } }
+        public List<Item> Items { get { return _items; }}
 
         //Adds the item from the list
         public void AddItem(Item item)
