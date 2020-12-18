@@ -17,7 +17,6 @@ namespace InventoryTracker
     /// </summary>
     public partial class Reports : Window
     {
-        Inventory inventory = new Inventory();
         public Reports(List<Item> items)
         {
             InitializeComponent();
