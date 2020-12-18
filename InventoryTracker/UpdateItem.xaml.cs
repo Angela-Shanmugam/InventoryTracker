@@ -19,7 +19,7 @@ namespace InventoryTracker
     {
         Item tempItem = new Item();
         List<string> dropDownSuppliers = new List<string>() { };
-        public bool deleteItem;
+        public bool? deleteItem;
 
         public UpdateItem()
         {
@@ -43,7 +43,7 @@ namespace InventoryTracker
             StringBuilder msg = new StringBuilder();
 
             //Available quantity
-            if (Convert.ToInt32(qtyAvailable.Text) <= 0 || string.IsNullOrEmpty(qtyAvailable.Text))
+            if (string.IsNullOrEmpty(qtyAvailable.Text) || Convert.ToInt32(qtyAvailable.Text) <= 0)
             {
                 msg.AppendLine("Available Quantity is a required field.");
             }
@@ -75,7 +75,8 @@ namespace InventoryTracker
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {          
+        {
+            deleteItem = null;
             this.Close();
         }
 

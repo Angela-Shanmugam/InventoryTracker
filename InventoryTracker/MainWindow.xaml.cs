@@ -75,13 +75,17 @@ namespace InventoryTracker
             UpdateItem update = new UpdateItem();
             update.ShowDialog();
             Item updateItem = ItemsStock.SelectedItem as Item;
-            if (update.deleteItem)
+            if (update.deleteItem == true)
             {
                 inventory.RemoveItem(updateItem);
             }
-            else
+            else if (update.deleteItem == false)
             {
                 inventory.UpdateItem(updateItem, Convert.ToInt32(update.qtyAvailable.Text), update.cmbSupplier.Text);
+            }
+            else
+            {
+                //
             }
             ItemsStock.Items.Refresh();
         }
