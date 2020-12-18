@@ -72,13 +72,25 @@ namespace InventoryTracker
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //inventory.update();
+            UpdateItem update = new UpdateItem();
+            update.ShowDialog();
+            Item updateItem = ItemsStock.SelectedItem as Item;
+            if (update.deleteItem)
+            {
+                inventory.RemoveItem(updateItem);
+            }
+            else
+            {
+                inventory.UpdateItem(updateItem, Convert.ToInt32(update.qtyAvailable.Text), update.cmbSupplier.Text);
+            }
+            ItemsStock.Items.Refresh();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AddForm addForm = new AddForm();
             addForm.ShowDialog();
+            
             inventory.AddItem(GetItemObject(addForm));
             ItemsStock.Items.Refresh();
         }

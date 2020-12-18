@@ -17,25 +17,74 @@ namespace InventoryTracker
     /// </summary>
     public partial class UpdateItem : Window
     {
+        Item tempItem = new Item();
+        List<string> dropDownSuppliers = new List<string>() { };
+        public bool deleteItem;
+
         public UpdateItem()
         {
             InitializeComponent();
+            SetSupplier();
         }
 
-       
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void SetSupplier()
         {
-            this.Close();
+            for (int i = 0; i < tempItem.supplier.Count; i++)
+            {
+                dropDownSuppliers.Add(tempItem.supplier[i]);
+            }
+
+            cmbSupplier.ItemsSource = dropDownSuppliers;
+            cmbSupplier.SelectedIndex = -1;
+        }
+
+        public bool ValidateForm()
+        {
+            StringBuilder msg = new StringBuilder();
+
+            //Available quantity
+            if (Convert.ToInt32(qtyAvailable.Text) <= 0 || string.IsNullOrEmpty(qtyAvailable.Text))
+            {
+                msg.AppendLine("Available Quantity is a required field.");
+            }
+
+            //category and Supplier: (-1 mean not selected index)
+            if (cmbSupplier.SelectedIndex == -1)
+            {
+                msg.AppendLine("A supplier was not selected.");
+            }
+
+            //Display a message
+            if (string.IsNullOrEmpty(msg.ToString()))
+            {
+                return true;
+            }
+
+            MessageBox.Show(msg.ToString(), "Form missing data", MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (ValidateForm())
+            {
+                deleteItem = false;
+                this.Close();
+            }       
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
+        {          
             this.Close();
         }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            deleteItem = true;
+            this.Close();
+        }
+
+     
     }
 }
