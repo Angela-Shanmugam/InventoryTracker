@@ -94,8 +94,14 @@ namespace InventoryTracker
         {
             AddForm addForm = new AddForm();
             addForm.ShowDialog();
-            
-            inventory.AddItem(GetItemObject(addForm));
+            if (addForm.cancel)
+            {
+                //
+            }
+            else
+            {
+                inventory.AddItem(GetItemObject(addForm));
+            }          
             ItemsStock.Items.Refresh();
         }
 

@@ -21,7 +21,7 @@ namespace InventoryTracker
         Item tempItem = new Item(); 
         List<string> dropDownSuppliers = new List<string>() { };
         List<string> categories = new List<string>() { };
-        
+        public bool cancel; 
         public AddForm()
         {
             InitializeComponent();
@@ -86,6 +86,7 @@ namespace InventoryTracker
             //Display a message
             if (string.IsNullOrEmpty(msg.ToString()))
             {
+                
                 return true;
             }
 
@@ -98,12 +99,14 @@ namespace InventoryTracker
         {
             if (ValidateForm())
             {
+                cancel = false;
                 this.Close();
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            cancel = true;
             this.Close();
         }
     }
