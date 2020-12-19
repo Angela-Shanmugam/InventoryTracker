@@ -82,6 +82,7 @@ namespace InventoryTracker
             else if (update.deleteItem == false)
             {
                 inventory.UpdateItem(updateItem, Convert.ToInt32(update.qtyAvailable.Text), update.cmbSupplier.Text);
+                ItemDetails.Text = updateItem.FullInfo;
             }
             else
             {
@@ -216,6 +217,7 @@ namespace InventoryTracker
                 I.AvailableQty++;
             }
             ItemsStock.Items.Refresh();
+            ItemDetails.Text = I.FullInfo;
         }
 
         private void btnRemoveQty(object sender, RoutedEventArgs e)
@@ -226,6 +228,7 @@ namespace InventoryTracker
                 I.AvailableQty--;
             }
             ItemsStock.Items.Refresh();
+            ItemDetails.Text = I.FullInfo;
         }
     }
 }
