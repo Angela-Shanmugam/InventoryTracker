@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InventoryTracker"
         mc:Ignorable="d"
            Background="{StaticResource BackgroundColor}"
-        Title="UpdateItem" Height="250" Width="300">
+        Title="UpdateItem" Height="270" Width="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

@@ -19,7 +19,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="70" Margin="60,0,0,0"></Image>
+        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="60" Margin="60,0,0,0"></Image>
         <TextBlock x:Name="title" Foreground="{StaticResource TitleColor}" FontStyle="Italic" Text="Inventory Tracker" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="39"/>
         <TextBlock Text="Items in Stock" Grid.Column="0" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
         <TextBlock Text="Item Details" Grid.Column="1" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
