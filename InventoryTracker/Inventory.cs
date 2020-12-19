@@ -13,11 +13,21 @@ namespace InventoryTracker
         public List<Item> Items { get { return _items; }}
 
         //Adds the item from the list
-        public void AddItem(Item item)
+        public string AddItem(Item item)
         {
+            string msg;
+            foreach  (Item theItem in _items)
+            {
+                if(theItem.Name == item.Name)
+                {
+                    msg = "Item already added. Adding item is unsuccessful.";
+                    return msg;
+                }
+            }
             _items.Add(item);
+             msg = "Adding item is successful.";
+            return msg;
         }
-
         //Removes the item from the list
         public void RemoveItem(Item item)
         {
