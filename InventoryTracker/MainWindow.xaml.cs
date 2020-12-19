@@ -100,7 +100,8 @@ namespace InventoryTracker
             }
             else
             {
-                inventory.AddItem(GetItemObject(addForm));
+                string message = inventory.AddItem(GetItemObject(addForm));
+                MessageBox.Show(message, "Adding Status", MessageBoxButton.OK);
             }          
             ItemsStock.Items.Refresh();
         }
@@ -206,6 +207,25 @@ namespace InventoryTracker
             return true; //Data is saved
 
         }
-        
+
+        private void btnAddQty(object sender, RoutedEventArgs e)
+        {
+            Item I = ItemsStock.SelectedItem as Item;
+            if (I.AvailableQty >=0)
+            {
+                I.AvailableQty++;
+            }
+            ItemsStock.Items.Refresh();
+        }
+
+        private void btnRemoveQty(object sender, RoutedEventArgs e)
+        {
+            Item I = ItemsStock.SelectedItem as Item;
+            if (I.AvailableQty > 0)
+            {
+                I.AvailableQty--;
+            }
+            ItemsStock.Items.Refresh();
+        }
     }
 }
