@@ -5,24 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryTracker"
         mc:Ignorable="d"
-        Title="Inventory Tracker" Height="500" Width="600"
+        Title="MainWindow" Height="500" Width="600"
         Background="{StaticResource BackgroundColor}" 
         WindowStartupLocation="CenterScreen" Closing="Window_Closing">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="60" Margin="60,0,0,0"></Image>
+        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="70" Margin="60,0,0,0"></Image>
         <TextBlock x:Name="title" Foreground="{StaticResource TitleColor}" FontStyle="Italic" Text="Inventory Tracker" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="39"/>
         <TextBlock Text="Items in Stock" Grid.Column="0" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
-        <TextBlock Text="Item Details" Grid.Column="1" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
+        <TextBlock Text="Item Details" Grid.Column="1" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Bottom" FontSize="20"/>
         <ListBox x:Name="ItemsStock" MouseDoubleClick="ItemsStock_MouseDoubleClick" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="10"  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -47,7 +47,17 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="ItemDetails" Grid.Column="0" IsHitTestVisible="False" Grid.Row="0" Grid.ColumnSpan="3" Margin="10" />
+            <TextBox x:Name="ItemDetails" Grid.Column="0" IsHitTestVisible="False" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" />
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Click="btnAddQty"  Grid.Row="0" Content="+" FontSize="40" Margin="20,40,20,0" Padding="-5" />
+                <Button Click="btnRemoveQty" Grid.Row="1" Content="-" FontSize="40" Margin="20,0,20,40" Padding="-5" VerticalContentAlignment="Top" />
+
+            </Grid>
+      
             <Button Click="btnAdd_Click" Grid.Row="1" Grid.Column="0" Content="Add" Margin="10"/>
             <Button Click="btnSort_Click" Grid.Row="1" Grid.Column="1" Content="Sort" Margin="10"/>
             <Button Click="btnUpdate_Click" Grid.Row="1" Grid.Column="2" Content="Update" Margin="10"/>
