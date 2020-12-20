@@ -20,6 +20,7 @@ namespace InventoryTracker
         //getter for List
         public List<Item> Items { get { return _items; }}
 
+        //methods
         //Adds the item from the list
         public string AddItem(Item item)
         {
