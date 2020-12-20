@@ -17,8 +17,10 @@ namespace InventoryTracker
     /// </summary>
     public partial class UpdateItem : Window
     {
+        //data fields
         Item tempItem = new Item();
         List<string> dropDownSuppliers = new List<string>() { };
+        //keeps track if the user presses delete item
         public bool? deleteItem;
 
         public UpdateItem()
@@ -27,6 +29,7 @@ namespace InventoryTracker
             SetSupplier();
         }
 
+        //adds supplier list to the comboBox
         private void SetSupplier()
         {
             for (int i = 0; i < tempItem.supplier.Count; i++)
@@ -38,6 +41,7 @@ namespace InventoryTracker
             cmbSupplier.SelectedIndex = -1;
         }
 
+        //validates available quantity, category and supplier 
         public bool ValidateForm()
         {
             StringBuilder msg = new StringBuilder();
@@ -67,6 +71,7 @@ namespace InventoryTracker
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            //validate form before closing window
             if (ValidateForm())
             {
                 deleteItem = false;
@@ -82,6 +87,7 @@ namespace InventoryTracker
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            //user clicks delete item
             deleteItem = true;
             this.Close();
         }

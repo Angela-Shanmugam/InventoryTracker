@@ -18,10 +18,13 @@ namespace InventoryTracker
     /// </summary>
     public partial class AddForm : Window
     {
+        //data fields
         Item tempItem = new Item(); 
         List<string> dropDownSuppliers = new List<string>() { };
         List<string> categories = new List<string>() { };
+        //checks if the user clicks cancel
         public bool cancel; 
+        
         public AddForm()
         {
             InitializeComponent();
@@ -29,6 +32,7 @@ namespace InventoryTracker
             SetCategories();
 
         }
+        //sets up supplier list in comboBox
         private void SetSupplier()
         {
             for (int i = 0; i < tempItem.supplier.Count; i++)
@@ -40,6 +44,7 @@ namespace InventoryTracker
             cmbSupplier.SelectedIndex = -1;
         }
 
+        //sets up category in comboBox
         private void SetCategories()
         {
             foreach (string categoryName in Enum.GetNames(typeof(category)))
@@ -51,6 +56,7 @@ namespace InventoryTracker
             cmbCategory.SelectedIndex = -1;
         }
 
+        //validates name, available quantity, minimum quantity, category and supplier
         public bool ValidateForm()
         {
             StringBuilder msg = new StringBuilder();
@@ -97,6 +103,7 @@ namespace InventoryTracker
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            //validates form before closing the window
             if (ValidateForm())
             {
                 cancel = false;
@@ -106,6 +113,7 @@ namespace InventoryTracker
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            //user clicks cancel
             cancel = true;
             this.Close();
         }

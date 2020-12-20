@@ -17,6 +17,7 @@ namespace InventoryTracker
     /// </summary>
     public partial class Reports : Window
     {
+        //inventory list (containing the items) are passed the reports class to be displayed in the data grid
         public Reports(List<Item> items)
         {
             InitializeComponent();

@@ -19,7 +19,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="70" Margin="60,0,0,0"></Image>
+        <Image x:Name="build_action" Source="./Images/InventoryLogo.png" HorizontalAlignment="Left" Height="60" Margin="60,0,0,0"></Image>
         <TextBlock x:Name="title" Foreground="{StaticResource TitleColor}" FontStyle="Italic" Text="Inventory Tracker" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="39"/>
         <TextBlock Text="Items in Stock" Grid.Column="0" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20"/>
         <TextBlock Text="Item Details" Grid.Column="1" Grid.Row="1" FontStyle="Italic" FontWeight="Black" HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Bottom" FontSize="20"/>
@@ -53,8 +53,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Click="btnAddQty"  Grid.Row="0" Content="+" FontSize="40" Margin="20,40,20,0" Padding="-5" />
-                <Button Click="btnRemoveQty" Grid.Row="1" Content="-" FontSize="40" Margin="20,0,20,40" Padding="-5" VerticalContentAlignment="Top" />
+                <Button Click="btnAddQty"  Grid.Row="0" Content="+" FontSize="40" Margin="20,35,20,0" Padding="-5" />
+                <Button Click="btnRemoveQty" Grid.Row="1" Content="-" FontSize="40" Margin="20,0,20,35" Padding="-5" VerticalContentAlignment="Top" />
 
             </Grid>
       

@@ -7,6 +7,7 @@ namespace InventoryTracker
 {
     class Inventory
     {
+        //data fields
         private List<Item> _items = new List<Item>() { };
         
         //getter for List
@@ -16,6 +17,7 @@ namespace InventoryTracker
         public string AddItem(Item item)
         {
             string msg;
+            //loops over the list to see if the item was already added
             foreach  (Item theItem in _items)
             {
                 if(theItem.Name == item.Name)
@@ -91,6 +93,7 @@ namespace InventoryTracker
                     streamReader.Close();
                 }
             }
+            //runs through each item and assigns the data accordingly
             foreach (string item in loadedItems)
             {
                 Item theLoadedItem = new Item();

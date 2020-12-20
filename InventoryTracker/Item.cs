@@ -194,6 +194,7 @@ namespace InventoryTracker
             return null;
         }
 
+        //Provides all details regarding each item
         public string FullInfo
         {
             get
@@ -209,6 +210,7 @@ namespace InventoryTracker
             }
         }
 
+        //CSVData is used to save and load data
         public string CSVData
         {
             get { return string.Format($"{Name},{Supplier},{Location},{Category},{AvailableQty},{MinQty}"); }

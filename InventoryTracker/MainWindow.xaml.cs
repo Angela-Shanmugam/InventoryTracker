@@ -25,9 +25,9 @@ namespace InventoryTracker
     {
         private Inventory inventory = new Inventory();
 
-        private bool isNewDocument = true; //used to check if the file is new and never saved.
-        private string saveLocation; //once saved, keep the location for future saves
-        private int recordCount = 0; //used to keep track what records are already saved
+        private bool isNewDocument = true; //used to check if the file is new and never saved
+        private string saveLocation; //keeps track of the file location
+        private int recordCount = 0; //used to keep track of saved records
 
         public MainWindow()
         {
@@ -75,6 +75,8 @@ namespace InventoryTracker
             UpdateItem update = new UpdateItem();
             update.ShowDialog();
             Item updateItem = ItemsStock.SelectedItem as Item;
+
+            //verify if the user wants the item to be deleted
             if (update.deleteItem == true)
             {
                 inventory.RemoveItem(updateItem);
@@ -82,11 +84,11 @@ namespace InventoryTracker
             else if (update.deleteItem == false)
             {
                 inventory.UpdateItem(updateItem, Convert.ToInt32(update.qtyAvailable.Text), update.cmbSupplier.Text);
-                ItemDetails.Text = updateItem.FullInfo;
+                ItemDetails.Text = updateItem.FullInfo; //refresh item details as soon as it's updated
             }
             else
             {
-                //
+                //do nothing
             }
             ItemsStock.Items.Refresh();
         }
@@ -95,13 +97,17 @@ namespace InventoryTracker
         {
             AddForm addForm = new AddForm();
             addForm.ShowDialog();
+
+            //verify if the user clicks cancel on the add form
             if (addForm.cancel)
             {
-                //
+                //do nothing
             }
             else
             {
                 string message = inventory.AddItem(GetItemObject(addForm));
+                
+                //display confirming message
                 MessageBox.Show(message, "Adding Status", MessageBoxButton.OK);
             }          
             ItemsStock.Items.Refresh();
@@ -109,12 +115,14 @@ namespace InventoryTracker
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
+            //Items are sorted in alphabetical order
             ItemsStock.ItemsSource = inventory.SortItems();
             ItemsStock.Items.Refresh();
         }
 
         private void btnGeneralReport_Click(object sender, RoutedEventArgs e)
         {
+            //all items in the list will be displayed
             Reports generalReport = new Reports(inventory.GeneralReport());
             generalReport.ShowDialog();
            
@@ -122,8 +130,38 @@ namespace InventoryTracker
 
         private void btnShoppingList_Click(object sender, RoutedEventArgs e)
         {
+            //any items that need to be purchased will show up on this report
             Reports shoppingList = new Reports(inventory.ShoppingList());
             shoppingList.ShowDialog();
+        }
+
+
+        private void btnAddQty(object sender, RoutedEventArgs e)
+        {
+            //quick add button for selected item in list
+            Item I = ItemsStock.SelectedItem as Item;
+            if (I.AvailableQty >= 0)
+            {
+                I.AvailableQty++;
+            }
+            //refresh UI
+            ItemsStock.Items.Refresh();
+            //updates the item details as there is an increase of quantity
+            ItemDetails.Text = I.FullInfo;
+        }
+
+        private void btnRemoveQty(object sender, RoutedEventArgs e)
+        {
+            //quick minus button for selected item in list
+            Item I = ItemsStock.SelectedItem as Item;
+            if (I.AvailableQty > 0)
+            {
+                I.AvailableQty--;
+            }
+            //refresh UI
+            ItemsStock.Items.Refresh();
+            //updates the item details as there is a decrease of quantity
+            ItemDetails.Text = I.FullInfo;
         }
 
         //Methods
@@ -146,11 +184,13 @@ namespace InventoryTracker
                     
             }
             string message = inventory.SaveItems(recordCount, saveLocation);
+            //display confirmation message
             MessageBox.Show(message, "Save Status", MessageBoxButton.OK);
         }
 
         private Item GetItemObject(AddForm addForm)
         {
+            //return new item to be added to the inventory list
             return new Item()
             {
                 Name = addForm.prodName.Text,
@@ -163,6 +203,7 @@ namespace InventoryTracker
 
         private void ItemsStock_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            //displays all item details in Items Details Textbox
             Item I = ItemsStock.SelectedItem as Item;
             if (I != null)
             {
@@ -206,29 +247,7 @@ namespace InventoryTracker
 
             }
             return true; //Data is saved
-
         }
 
-        private void btnAddQty(object sender, RoutedEventArgs e)
-        {
-            Item I = ItemsStock.SelectedItem as Item;
-            if (I.AvailableQty >=0)
-            {
-                I.AvailableQty++;
-            }
-            ItemsStock.Items.Refresh();
-            ItemDetails.Text = I.FullInfo;
-        }
-
-        private void btnRemoveQty(object sender, RoutedEventArgs e)
-        {
-            Item I = ItemsStock.SelectedItem as Item;
-            if (I.AvailableQty > 0)
-            {
-                I.AvailableQty--;
-            }
-            ItemsStock.Items.Refresh();
-            ItemDetails.Text = I.FullInfo;
-        }
     }
 }
