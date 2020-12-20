@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
+/*Names: Angela Shanmugam and Reigina Mae Martin
+ * Student ID: 1946356 and 1965312
+ * Programming III: Final Project - Inventory Tracker
+ * Teacher: Aref Mourtada
+ * Due date: December 19,2020
+*/
+
 namespace InventoryTracker
 {
     class Inventory
